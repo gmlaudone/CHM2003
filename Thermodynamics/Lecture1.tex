@@ -9,6 +9,7 @@
 \setlength{\textwidth}{6.5in}
 \setlength{\textheight}{8in}
 \newcommand*\diff{\mathop{}\!\mathrm{d}}
+
 \begin{document}
    \pagestyle{headings}
    \thispagestyle{plain}
@@ -49,7 +50,7 @@
    Thermodynamics focuses in particular on \textit{states of equilibrium}, states that do not vary if the external conditions do not change.
    A transformation can be:
    \begin{itemize}
-   \item Reversible when all the successive states are infinitesimally close the a state of equilibrium.
+   \item Reversible when all the successive states are infinitesimally close to a state of equilibrium.
    \item Irreversible. 
    \item Adiabatic when there is no heat transfer between system and surroundings.
    \item Isobaric: constant pressure.
@@ -92,8 +93,13 @@ The change of a state function on a close path (where the initial and final stat
    \end{equation*}
    This is the mathematical formulation of the \textbf{first law of thermodynamics}.
    For a system change between two states the values of work and heat are dependent from the path of the transformation, but their sum is not. 
+    
+    For a reversible process at constant volume ($dV=0$) the gradient of the internal energy with temperature is the heat capacity at constant volume. $C_{V}$ is an extensive property.
+   \begin{equation*}
+   \left(\frac{\partial U}{\partial T}\right)_{V}=C_{V}
+   \end{equation*}  
    
-   The \textbf{second law of thermodynamics} puts limits on the conversion of $q$ to $w$. It could be formulated using Kelvin postulate: it is impossible for any system to operate in a cycle that takes heat from a hot reservoir and converts it to work in the surroundings without at the same time transferring some heat to a colder reservoir. An alternative formulation is: all spontaneous processes are irreversible.
+   The \textbf{second law of thermodynamics} puts limits on the conversion of $q$ to $w$. It could be formulated using the Kelvin postulate: it is impossible for any system to operate in a cycle that takes heat from a hot reservoir and converts it to work in the surroundings without at the same time transferring some heat to a colder reservoir. An alternative formulation is: all spontaneous processes are irreversible.
    The mathematical formulation of the second law of thermodynamics is:
    \begin{align*}
    \oint\frac{\diff q_{\mathrm{rev}}}{T}=0 &&\mathrm{and}&& \oint\frac{\diff q_{\mathrm{irrev}}}{T}<0
@@ -106,11 +112,16 @@ The change of a state function on a close path (where the initial and final stat
    \begin{equation*}
    H=U+pV
    \end{equation*}
-   For a reversible process at constant pressure ($dp=0$) the slope of enthalpy with temperature is the heat capacity at constant pressure. 
+   For a reversible process at constant pressure ($dp=0$) the gradient of enthalpy with temperature is the heat capacity at constant pressure. 
    \begin{equation*}
    \left(\frac{\partial H}{\partial T}\right)_{p}=C_{p}
    \end{equation*}
-   $C_{p}$ is an extensive property.
+   $C_{p}$ is an extensive property. 
+   For an ideal gas:
+   \begin{equation*}
+   \widetilde{C}_{p}-\widetilde{C}_{V}=R
+   \end{equation*}
+   where $\widetilde{C}_{p}$ and $\widetilde{C}_{V}$ are the molar heat capacities.
    
    \textbf{Hess's law:} the total enthalpy change of a chemical reaction is independent of the sequence of steps the reaction may be divided into. As a consequence:
    \begin{equation*}
@@ -118,7 +129,7 @@ The change of a state function on a close path (where the initial and final stat
    \end{equation*}
    where $\Delta H^{\standardstate}_{\mathrm{r}, i}$ is the standard reaction enthalpy, $\Delta H^{\standardstate}_{\mathrm{f},i}$ is the standard enthalpy of formation for each component $i$, and $\nu_{i}$ is the stoichiometric coefficient of component $i$ (positive if $i$ is a product of the reaction and negative if it's a reactant).
    \subsubsection{Kirchoff's law}
-   If the reaction enthalpy is know at a temperature $T_{1}$, the reaction enthalpy at a different temperature $T_{2}$ can be calculated if the heat capacities of all the chemical species involved in the reaction are known. The enthalpy change of a chemical reaction in standard condition is:
+   If the reaction enthalpy is known at a temperature $T_{1}$, the reaction enthalpy at a different temperature $T_{2}$ can be calculated if the heat capacities of all the chemical species involved in the reaction are known. The enthalpy change of a chemical reaction under standard conditions is:
    \begin{equation*}
    \Delta H^{\standardstate}_{\mathrm{r}}=H^{\standardstate}_{\mathrm{products}}-H^{\standardstate}_{\mathrm{reactants}}
    \end{equation*}
@@ -137,7 +148,7 @@ The change of a state function on a close path (where the initial and final stat
    which is the mathematical formulation of Kirchoff's law.
    The value of $\Delta C^{\standardstate}_{p}$ can be calculated with:
    \begin{equation*}
-   \Delta C^{\standardstate}_{p}=\sum\limits_{i}\nu_{i}\widetilde{C}^{\standardstate}_{\mathrm{p},i}
+   \Delta C^{\standardstate}_{p}=\sum\limits_{i}\nu_{i}\widetilde{C}^{\standardstate}_{p,i}
    \end{equation*}
    where $\nu_{i}$ is the stoichiometric coefficient of component $i$ (positive if $i$ is a product of the reaction and negative if it's a reactant) and $\widetilde{C}^{\standardstate}_{\mathrm{p},i}$ is the molar heat capacity at constant pressure of species $i$.
    On small temperature ranges the heat capacity of substances can be considered independent of temperature. However, on larger temperature intervals such approximation is not acceptable. The dependency of heat capacity from temperature can be expressed in the form:
