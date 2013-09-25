@@ -1,0 +1,147 @@
+\documentclass[12pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{chemstyle}
+\addtolength{\topmargin}{-1in}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{8in}
+\newcommand*\diff{\mathop{}\!\mathrm{d}}
+\begin{document}
+   \pagestyle{headings}
+   \thispagestyle{plain}
+   \newpage
+   \noindent
+   \begin{center}
+   \framebox{
+       \vbox{
+           \hbox to 6.28in { {\bf CHM2003 Physical Chemistry 2 \hfill October 2013} }
+           \vspace{4mm}
+           \hbox to 6.28in { {\Large \hfill Thermodynamics   \hfill} }
+           \vspace{2mm}
+           \hbox to 6.28in { {\it Giuliano Maurizio Laudone \hfill Lecture 1} }
+      }
+   }
+   \end{center}
+   \section*{Review of year 1 Thermodynamics}
+   \begin{itemize}
+   \item Thermodynamics developed in the 19\textsuperscript{th} century from the studies on steam engines, focusing on the transformation of \textit{heat} into \textit{work} and vice versa.
+   \item It's entirely empirical. There is no direct proof of the laws of thermodynamics. They are postulated on the basis of experimental evidence.
+   \item It's universal.
+   \end{itemize}
+   \subsection*{A few definitions}
+   \textbf{System:} the part of the Universe that we choose to study. The correct choice of system is often the most critical step in solving a thermodynamics problem correctly.\\ \textbf{Surroundings:} the rest of the Universe.\\ \textbf{Boundary:} what separates the system from the surroundings.\\ An \textit{open} system can exchange mass and energy with its surroundings. A \textit{closed} system can exchange energy but not mass with its surroundings. An \textit{isolated} system cannot exchange mass nor energy with its surroundings. 
+   
+   The complete description of the state of a system requires the knowledge of such variables as:
+   \begin{itemize}
+   \item $p$: the pressure of the system
+   \item $T$: temperature
+   \item $V$: the volume of the system
+   \item $m$: the mass of the system
+   \item $n^{\alpha}_{i}$: the composition of each phase of the system
+   \end{itemize}
+   Properties of a system can be \textit{extensive}, when their value is dependent on the size of the system (such as $V$, $n$, $m$) or \textit{intensive}, when their value does not depend on the size of the system (such as $T$ and $p$). The molar version of an extensive property, for example the molar volume $\widetilde{V}_{i} = \frac{V}{n_{i}}$, is an intensive property.
+   
+   The way a system evolves in time from one state to another or the speed of such transformation are not described by thermodynamics. For example, thermodynamics can tell us if any two chemical species will spontaneously react to form a third species, but it will not give us any indication on the time needed for such chemical reaction to happen.
+   
+   Thermodynamics focuses in particular on \textit{states of equilibrium}, states that do not vary if the external conditions do not change.
+   A transformation can be:
+   \begin{itemize}
+   \item Reversible when all the successive states are infinitesimally close the a state of equilibrium.
+   \item Irreversible. 
+   \item Adiabatic when there is no heat transfer between system and surroundings.
+   \item Isobaric: constant pressure.
+   \item Isothermal: constant temperature.
+   \item Isometric or isochoric: constant volume.
+   \end{itemize}
+
+   A thermodynamical property of a system is a \textit{state function} if its value is a function only of the current state of the system, being completely independent of the previous states of the systems and of the transformations the system underwent to reach its current state. A \textit{path function} is a property dependent from the path of the system transformation.
+   If a property $Z$ of a system is a function of state, and the system changes from an initial state (i) to a final state (f), then the overall change in the value of $Z$ is given only by the difference of its final and initial value: 
+   \begin{equation*}
+   \Delta Z = \int_{i}^{f}\diff Z = Z_{f}-Z_{i}
+   \end{equation*}
+This means that the differential of a state function is \textit{exact}, while that of a path function is \textit{inexact} and their integral must be evaluated along the path that describes the changes of the system. State functions are usually identified with capital letters.
+The change of a state function on a close path (where the initial and final states are identical) is 0:
+   \begin{equation*}
+   \oint\diff Z = 0
+   \end{equation*}
+   \subsection*{Work and heat}
+   \subsubsection{Work}
+   In the study of thermodynamics we will mostly focus on a particular type of mechanical work: \textit{expansion work}:
+   \begin{equation*}
+   \diff w=-p_{\mathrm{ext}}\diff V
+   \end{equation*}
+   The minus sign is due to the convention that work done by the system is negative, while work done by the surroundings onto the system is positive. Work is not a state function and its total value during a transformation is a function of the path of the transformation.
+   \subsubsection{Heat}
+   Heat is the transfer of energy that results in a temperature change of the system and/or the surroundings. 
+   Heat, just as work, is a path function. By convention, its sign is positive if heat enters the system and negative if it leaves the system.
+   \subsection*{The laws of thermodynamics}
+   \textbf{Zeroth law of thermodynamics:} Two systems that are both in thermal equilibrium with a third system are in thermal equilibrium with each other. This seems just common sense, but the definition of the zeroth law is what the concept of temperature and its measurement are based upon.
+   
+   Joule designed a clever experiment which demonstrated that it is possible to increase the temperature of a system just by applying mechanical work to it. By doing so, he demonstrated the equivalence of work and heat.
+   
+   Experimentally it was found that:
+   \begin{equation*}
+   \oint\diff q+\diff w=0
+   \end{equation*}
+   This implies that there is a state function, which we call \textit{internal energy} $U$ with differential 
+   \begin{equation*}
+   \diff U=\diff q+\diff w
+   \end{equation*}
+   This is the mathematical formulation of the \textbf{first law of thermodynamics}.
+   For a system change between two states the values of work and heat are dependent from the path of the transformation, but their sum is not. 
+   
+   The \textbf{second law of thermodynamics} puts limits on the conversion of $q$ to $w$. It could be formulated using Kelvin postulate: it is impossible for any system to operate in a cycle that takes heat from a hot reservoir and converts it to work in the surroundings without at the same time transferring some heat to a colder reservoir. An alternative formulation is: all spontaneous processes are irreversible.
+   The mathematical formulation of the second law of thermodynamics is:
+   \begin{align*}
+   \oint\frac{\diff q_{\mathrm{rev}}}{T}=0 &&\mathrm{and}&& \oint\frac{\diff q_{\mathrm{irrev}}}{T}<0
+   \end{align*}
+   The state function whose differential is $\frac{\diff q_{\mathrm{rev}}}{T}$ is called \textbf{entropy} $S$.
+   
+   \textbf{Third law of thermodynamics:} the entropy of a pure, perfectly crystalline substance is zero at the $T=0\:\mathrm{K}$. A consequence of the third law is that it's impossible to decrease the temperature of a system to $0\:\mathrm{K}$ in a finite number of steps.
+   \section*{Enthalpy and chemical reactions}
+   Enthalpy is defined as:
+   \begin{equation*}
+   H=U+pV
+   \end{equation*}
+   For a reversible process at constant pressure ($dp=0$) the slope of enthalpy with temperature is the heat capacity at constant pressure. 
+   \begin{equation*}
+   \left(\frac{\partial H}{\partial T}\right)_{p}=C_{p}
+   \end{equation*}
+   $C_{p}$ is an extensive property.
+   
+   \textbf{Hess's law:} the total enthalpy change of a chemical reaction is independent of the sequence of steps the reaction may be divided into. As a consequence:
+   \begin{equation*}
+   \Delta H^{\standardstate}_{\mathrm{r}, i}=\sum\limits_{i}\nu_{i}\Delta H^{\standardstate}_{\mathrm{f},i}
+   \end{equation*}
+   where $\Delta H^{\standardstate}_{\mathrm{r}, i}$ is the standard reaction enthalpy, $\Delta H^{\standardstate}_{\mathrm{f},i}$ is the standard enthalpy of formation for each component $i$, and $\nu_{i}$ is the stoichiometric coefficient of component $i$ (positive if $i$ is a product of the reaction and negative if it's a reactant).
+   \subsubsection{Kirchoff's law}
+   If the reaction enthalpy is know at a temperature $T_{1}$, the reaction enthalpy at a different temperature $T_{2}$ can be calculated if the heat capacities of all the chemical species involved in the reaction are known. The enthalpy change of a chemical reaction in standard condition is:
+   \begin{equation*}
+   \Delta H^{\standardstate}_{\mathrm{r}}=H^{\standardstate}_{\mathrm{products}}-H^{\standardstate}_{\mathrm{reactants}}
+   \end{equation*}
+   By differentiating this expression with temperature we obtain:
+   \begin{equation*}
+   \frac{\diff\Delta H^{\standardstate}_{\mathrm{r}}}{\diff T}=\frac{\diff H^{\standardstate}_{\mathrm{products}}}{\diff T}-\frac{\diff H^{\standardstate}_{\mathrm{reactants}}}{\diff T}
+   \end{equation*}
+   therefore:
+   \begin{equation*}
+   \frac{\diff\Delta H^{\standardstate}_{\mathrm{r}}}{\diff T}=\Delta C^{\standardstate}_{p}
+   \end{equation*}
+   Integrating this between $T_{1}$ and $T_{2}$ results in:
+   \begin{equation*}
+   \Delta H^{\standardstate}_{T_{2}}=\Delta H^{\standardstate}_{T_{1}}+\int\limits_{T_{1}}^{T_{2}}\Delta C^{\standardstate}_{p}\diff T
+   \end{equation*}
+   which is the mathematical formulation of Kirchoff's law.
+   The value of $\Delta C^{\standardstate}_{p}$ can be calculated with:
+   \begin{equation*}
+   \Delta C^{\standardstate}_{p}=\sum\limits_{i}\nu_{i}\widetilde{C}^{\standardstate}_{\mathrm{p},i}
+   \end{equation*}
+   where $\nu_{i}$ is the stoichiometric coefficient of component $i$ (positive if $i$ is a product of the reaction and negative if it's a reactant) and $\widetilde{C}^{\standardstate}_{\mathrm{p},i}$ is the molar heat capacity at constant pressure of species $i$.
+   On small temperature ranges the heat capacity of substances can be considered independent of temperature. However, on larger temperature intervals such approximation is not acceptable. The dependency of heat capacity from temperature can be expressed in the form:
+  \begin{equation*}
+  C_{p}=a+bT+\frac{c}{T^{2}}+...
+  \end{equation*}
+\end{document}
