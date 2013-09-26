@@ -6,9 +6,10 @@
 \usepackage{graphicx}
 \usepackage{chemstyle}
 \addtolength{\topmargin}{-1in}
-\setlength{\textwidth}{6.5in}
-\setlength{\textheight}{8in}
+\setlength{\textwidth}{6.3in}
+\setlength{\textheight}{9.5in}
 \newcommand*\diff{\mathop{}\!\mathrm{d}}
+\newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
 
 \begin{document}
    \pagestyle{headings}
@@ -18,11 +19,11 @@
    \begin{center}
    \framebox{
        \vbox{
-           \hbox to 6.28in { {\bf CHM2003 Physical Chemistry 2 \hfill October 2013} }
+           \hbox to 6in { {\bf CHM2003 Physical Chemistry 2 \hfill October 2013} }
            \vspace{4mm}
-           \hbox to 6.28in { {\Large \hfill Thermodynamics   \hfill} }
+           \hbox to 6in { {\Large \hfill Thermodynamics   \hfill} }
            \vspace{2mm}
-           \hbox to 6.28in { {\it Giuliano Maurizio Laudone \hfill Lecture 1} }
+           \hbox to 6in { {\it Giuliano Maurizio Laudone \hfill Lecture 1} }
       }
    }
    \end{center}
@@ -43,7 +44,7 @@
    \item $m$: the mass of the system
    \item $n^{\alpha}_{i}$: the composition of each phase of the system
    \end{itemize}
-   Properties of a system can be \textit{extensive}, when their value is dependent on the size of the system (such as $V$, $n$, $m$) or \textit{intensive}, when their value does not depend on the size of the system (such as $T$ and $p$). The molar version of an extensive property, for example the molar volume $\widetilde{V}_{i} = \frac{V}{n_{i}}$, is an intensive property.
+   Properties of a system can be \textit{extensive}, when their value is dependent on the size of the system (such as $V$, $n$, $m$) or \textit{intensive}, when their value does not depend on the size of the system (such as $T$ and $p$). The molar version of an extensive property, for example the molar volume $\overbar{V}_{i} = \frac{V}{n_{i}}$, is an intensive property.
    
    The way a system evolves in time from one state to another or the speed of such transformation are not described by thermodynamics. For example, thermodynamics can tell us if any two chemical species will spontaneously react to form a third species, but it will not give us any indication on the time needed for such chemical reaction to happen.
    
@@ -69,13 +70,13 @@ The change of a state function on a close path (where the initial and final stat
    \oint\diff Z = 0
    \end{equation*}
    \subsection*{Work and heat}
-   \subsubsection{Work}
+   \subsubsection*{Work}
    In the study of thermodynamics we will mostly focus on a particular type of mechanical work: \textit{expansion work}:
    \begin{equation*}
    \diff w=-p_{\mathrm{ext}}\diff V
    \end{equation*}
    The minus sign is due to the convention that work done by the system is negative, while work done by the surroundings onto the system is positive. Work is not a state function and its total value during a transformation is a function of the path of the transformation.
-   \subsubsection{Heat}
+   \subsubsection*{Heat}
    Heat is the transfer of energy that results in a temperature change of the system and/or the surroundings. 
    Heat, just as work, is a path function. By convention, its sign is positive if heat enters the system and negative if it leaves the system.
    \subsection*{The laws of thermodynamics}
@@ -119,16 +120,16 @@ The change of a state function on a close path (where the initial and final stat
    $C_{p}$ is an extensive property. 
    For an ideal gas:
    \begin{equation*}
-   \widetilde{C}_{p}-\widetilde{C}_{V}=R
+   \overbar{C}_{p}-\overbar{C}_{V}=R
    \end{equation*}
-   where $\widetilde{C}_{p}$ and $\widetilde{C}_{V}$ are the molar heat capacities.
+   where $\overbar{C}_{p}$ and $\overbar{C}_{V}$ are the molar heat capacities.
    
    \textbf{Hess's law:} the total enthalpy change of a chemical reaction is independent of the sequence of steps the reaction may be divided into. As a consequence:
    \begin{equation*}
    \Delta H^{\standardstate}_{\mathrm{r}, i}=\sum\limits_{i}\nu_{i}\Delta H^{\standardstate}_{\mathrm{f},i}
    \end{equation*}
    where $\Delta H^{\standardstate}_{\mathrm{r}, i}$ is the standard reaction enthalpy, $\Delta H^{\standardstate}_{\mathrm{f},i}$ is the standard enthalpy of formation for each component $i$, and $\nu_{i}$ is the stoichiometric coefficient of component $i$ (positive if $i$ is a product of the reaction and negative if it's a reactant).
-   \subsubsection{Kirchoff's law}
+   \subsubsection*{Kirchoff's law}
    If the reaction enthalpy is known at a temperature $T_{1}$, the reaction enthalpy at a different temperature $T_{2}$ can be calculated if the heat capacities of all the chemical species involved in the reaction are known. The enthalpy change of a chemical reaction under standard conditions is:
    \begin{equation*}
    \Delta H^{\standardstate}_{\mathrm{r}}=H^{\standardstate}_{\mathrm{products}}-H^{\standardstate}_{\mathrm{reactants}}
@@ -148,9 +149,9 @@ The change of a state function on a close path (where the initial and final stat
    which is the mathematical formulation of Kirchoff's law.
    The value of $\Delta C^{\standardstate}_{p}$ can be calculated with:
    \begin{equation*}
-   \Delta C^{\standardstate}_{p}=\sum\limits_{i}\nu_{i}\widetilde{C}^{\standardstate}_{p,i}
+   \Delta C^{\standardstate}_{p}=\sum\limits_{i}\nu_{i}\overbar{C}^{\standardstate}_{p,i}
    \end{equation*}
-   where $\nu_{i}$ is the stoichiometric coefficient of component $i$ (positive if $i$ is a product of the reaction and negative if it's a reactant) and $\widetilde{C}^{\standardstate}_{\mathrm{p},i}$ is the molar heat capacity at constant pressure of species $i$.
+   where $\nu_{i}$ is the stoichiometric coefficient of component $i$ (positive if $i$ is a product of the reaction and negative if it's a reactant) and $\overbar{C}^{\standardstate}_{\mathrm{p},i}$ is the molar heat capacity at constant pressure of species $i$.
    On small temperature ranges the heat capacity of substances can be considered independent of temperature. However, on larger temperature intervals such approximation is not acceptable. The dependency of heat capacity from temperature can be expressed in the form:
   \begin{equation*}
   C_{p}=a+bT+\frac{c}{T^{2}}+...
