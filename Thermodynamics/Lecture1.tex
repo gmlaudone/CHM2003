@@ -5,11 +5,79 @@
 \usepackage{amssymb}
 \usepackage{graphicx}
 \usepackage{chemstyle}
+\usepackage{mdframed}
+\usepackage{tikz}
+\usetikzlibrary{matrix}
 \addtolength{\topmargin}{-1in}
 \setlength{\textwidth}{6.3in}
 \setlength{\textheight}{9.5in}
 \newcommand*\diff{\mathop{}\!\mathrm{d}}
 \newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
+
+% code to hide part of the text leaving the blank space in its place
+\ExplSyntaxOn
+\box_new:N \l_mypkg_box
+\int_new:N \l_mypkg_cleanup_int
+\DeclareDocumentCommand{\hideit}{O{1}+m}
+  {
+    \tex_setbox:D \l_mypkg_box \tex_vbox:D
+      {
+        #2\par
+        \dim_zero:N \tex_baselineskip:D
+        \dim_zero:N \tex_lineskip:D
+        \dim_zero:N \tex_lineskiplimit:D
+        \int_set:Nn \l_mypkg_cleanup_int {#1}
+        \mypkg_dismantle_loop:
+      }
+    \tex_unvbox:D \l_mypkg_box
+  }
+\cs_new_protected:Npn \mypkg_dismantle_loop:
+  {
+    \prg_replicate:nn { \l_mypkg_cleanup_int }
+      {
+        \skip_if_eq:nnT { \tex_lastskip:D } { \c_zero_skip } { \tex_unskip:D }
+        \dim_compare:nT { \tex_lastkern:D = \c_zero_dim } { \tex_unkern:D }
+        \int_compare:nT { \tex_lastpenalty:D = \c_zero } { \tex_unpenalty:D }
+      }
+    \skip_if_eq:nnTF { \tex_lastskip:D } { \c_zero_skip }
+      {
+        \dim_compare:nTF { \tex_lastkern:D = \c_zero_dim }
+          {
+            \int_compare:nTF { \tex_lastpenalty:D = \c_zero }
+              {
+                \box_set_to_last:N \l_mypkg_box
+                \box_if_empty:NF \l_mypkg_box
+                  { \mypkg_dismantle_box: }
+              }
+              { \mypkg_dismantle_penalty: }
+          }
+          { \mypkg_dismantle_kern: }
+      }
+      { \mypkg_dismantle_skip: }
+  }
+\cs_new_protected:Npn \mypkg_dismantle_skip:
+  { \mypkg_dismantle_aux:nN { \tex_vskip:D \skip_use:N \tex_lastskip:D } \tex_unskip:D }
+\cs_new_protected:Npn \mypkg_dismantle_kern:
+  { \mypkg_dismantle_aux:nN { \tex_kern:D \dim_use:N \tex_lastkern:D } \tex_unkern:D }
+\cs_new_protected:Npn \mypkg_dismantle_penalty:
+  { \mypkg_dismantle_aux:nN { \tex_penalty:D \int_use:N \tex_lastpenalty:D } \tex_unpenalty:D }
+\cs_new_protected:Npn \mypkg_dismantle_box:
+  { \mypkg_dismantle_aux:nN { \tex_vbox:D to \dim_eval:n { \box_ht:N \l_mypkg_box + \box_dp:N \l_mypkg_box } { } } \scan_stop: }
+\cs_new_protected:Npn \mypkg_dismantle_aux:nN #1#2
+  {
+    \use:x
+      {
+        #2
+        \mypkg_dismantle_loop:
+        #1 \scan_stop:
+      }
+  }
+\ExplSyntaxOff
+
+%conditional compilation for students version of document
+\newif\ifstudents
+%\studentstrue % comment out to hide text and equations
+
 
 \begin{document}
    \pagestyle{headings}
@@ -129,8 +197,63 @@ The change of a state function on a close path (where the initial and final stat
    \Delta H^{\standardstate}_{\mathrm{r}, i}=\sum\limits_{i}\nu_{i}\Delta H^{\standardstate}_{\mathrm{f},i}
    \end{equation*}
    where $\Delta H^{\standardstate}_{\mathrm{r}, i}$ is the standard reaction enthalpy, $\Delta H^{\standardstate}_{\mathrm{f},i}$ is the standard enthalpy of formation for each component $i$, and $\nu_{i}$ is the stoichiometric coefficient of component $i$ (positive if $i$ is a product of the reaction and negative if it's a reactant).
-   \subsubsection*{Kirchoff's law}
-   If the reaction enthalpy is known at a temperature $T_{1}$, the reaction enthalpy at a different temperature $T_{2}$ can be calculated if the heat capacities of all the chemical species involved in the reaction are known. The enthalpy change of a chemical reaction under standard conditions is:
+   \subsubsection*{Kirchhoff's law}
+   We have this set of transformations:
+   \begin{description}
+   
+
+   \item[A]- $R$ reacts at $T_{1}$ to form $P$,
+   \item[B]- the temperature of $R$ changes from $T_{1}$ to $T_{2}$,
+   \item[C]- $R$ reacts at $T_{2}$ to form $P$,
+   \item[D]- the temperature of $P$ changes from $T_{2}$ to $T_{1}$.
+   \end{description}
+   \begin{center}
+    \begin{tikzpicture}
+     \matrix (m) [matrix of math nodes,row sep=3em,column sep=4em,minimum width=2em]
+     {
+     T_{2} & R & P \\
+     T_{1} & R & P \\};
+     \path[draw]
+     (m-1-2)[->] edge node[above]{C}(m-1-3)
+     (m-1-3)[->] edge node[right]{D} (m-2-3)
+     (m-2-2)[->] edge node[below]{A} (m-2-3)
+     		   edge node[left]{B} (m-1-2);
+     \path[draw, dashed]
+     (m-1-1)[-] edge node[]{} (m-1-2)
+     (m-2-1)[-] edge node[]{} (m-2-2)
+     ;
+    \end{tikzpicture}
+   \end{center}
+   $H$ is a state function, so the variation of enthalpy is only a function of the initial and final state and it's not a function of the path. In this case path \textbf{A} and path \textbf{B+C+D} have the same initial and final state, which means that the overall change in enthalpy must be the same. The change in enthalpy for steps \textbf{A} and \textbf{C} is simply the reaction enthalpy at $T_{1}$ and $T_{2}$ respectively. 
+   
+   How can we calculate the change of enthalpy for stages \textbf{B} and \textbf{D}? We know that the variation of enthalpy with temperature can be expressed as $\left(\frac{\partial H}{\partial T}\right)_{p}=C_{p}$.  By integrating with the correct limits we obtain:
+   \ifstudents \hideit[2]{ \fi
+   \begin{align*}
+   \Delta H^{\standardstate}_{\mathrm{B}}=\int\limits_{T_{1}}^{T_{2}}C^{\standardstate}_{p,\mathrm{R}}\diff T &&\mathrm{and}&& \Delta H^{\standardstate}_{\mathrm{D}}=\int\limits_{T_{2}}^{T_{1}}C^{\standardstate}_{p,\mathrm{P}}\diff T = -\int\limits_{T_{1}}^{T_{2}}C^{\standardstate}_{p,\mathrm{P}}\diff T
+   \end{align*}
+   \ifstudents } \fi
+   We can write $\Delta H_{\mathrm{A}} = \Delta H_{\mathrm{B}}+\Delta H_{\mathrm{C}}+\Delta H_{\mathrm{D}}$ in the form:
+   \ifstudents \hideit[2]{ \fi
+   \begin{equation*}
+   \Delta H^{\standardstate}_{\mathrm{r},T_{1}}=\int\limits_{T_{1}}^{T_{2}} C^{\standardstate}_{p,\mathrm{R}}\diff T +\Delta H^{\standardstate}_{\mathrm{r},T_{2}} -\int\limits_{T_{1}}^{T_{2}} C^{\standardstate}_{p,\mathrm{P}}\diff T
+   \end{equation*}
+   \ifstudents } \fi
+   Solving for $\Delta H^{\standardstate}_{\mathrm{r},T_{2}}$
+   \ifstudents \hideit[2]{ \fi
+   \begin{equation*}
+   \Delta H^{\standardstate}_{\mathrm{r},T_{2}}=\Delta H^{\standardstate}_{\mathrm{r},T_{1}} +\int\limits_{T_{1}}^{T_{2}} C^{\standardstate}_{p,\mathrm{P}}\diff T -  \int\limits_{T_{1}}^{T_{2}} C^{\standardstate}_{p,\mathrm{R}}\diff T =\Delta H^{\standardstate}_{\mathrm{r},T_{1}} +\int\limits_{T_{1}}^{T_{2}} (C^{\standardstate}_{p,\mathrm{P}}- C^{\standardstate}_{p,\mathrm{R}})\diff T 
+   \end{equation*}
+   \ifstudents } \fi
+   Setting $(C^{\standardstate}_{p,\mathrm{P}}- C^{\standardstate}_{p,\mathrm{R}}) = \Delta C^{\standardstate}_{p}$ we finally obtain:
+   \ifstudents \hideit[2]{ \fi
+   \begin{equation*}
+   \Delta H^{\standardstate}_{\mathrm{r},T_{2}} = \Delta H^{\standardstate}_{\mathrm{r},T_{1}} +\int\limits_{T_{1}}^{T_{2}} \Delta C^{\standardstate}_{p}\diff T 
+   \end{equation*}
+   \ifstudents } \fi
+   which is the mathematical formulation of Kirchhoff's law. It means that the reaction enthalpy at temperature $T_{2}$ can be calculated if the reaction enthalpy at temperature $T_{1}$ and the heat capacities of all the chemical species involved in the reaction are known.    
+\begin{mdframed}
+\textbf{An alternative derivation of Kirchhoff's law.}\\
+   The enthalpy change of a chemical reaction under standard conditions is:
    \begin{equation*}
    \Delta H^{\standardstate}_{\mathrm{r}}=H^{\standardstate}_{\mathrm{products}}-H^{\standardstate}_{\mathrm{reactants}}
    \end{equation*}
@@ -140,20 +263,25 @@ The change of a state function on a close path (where the initial and final stat
    \end{equation*}
    therefore:
    \begin{equation*}
-   \frac{\diff\Delta H^{\standardstate}_{\mathrm{r}}}{\diff T}=\Delta C^{\standardstate}_{p}
+   \frac{\diff\Delta H^{\standardstate}_{\mathrm{r}}}{\diff T}=C^{\standardstate}_{p,\mathrm{products}}-C^{\standardstate}_{p,\mathrm{reactants}}=\Delta C^{\standardstate}_{p}
    \end{equation*}
    Integrating this between $T_{1}$ and $T_{2}$ results in:
    \begin{equation*}
-   \Delta H^{\standardstate}_{T_{2}}=\Delta H^{\standardstate}_{T_{1}}+\int\limits_{T_{1}}^{T_{2}}\Delta C^{\standardstate}_{p}\diff T
+   \Delta H^{\standardstate}_{\mathrm{r},T_{2}}=\Delta H^{\standardstate}_{\mathrm{r},T_{1}}+\int\limits_{T_{1}}^{T_{2}}\Delta C^{\standardstate}_{p}\diff T
    \end{equation*}
-   which is the mathematical formulation of Kirchoff's law.
-   The value of $\Delta C^{\standardstate}_{p}$ can be calculated with:
+\end{mdframed}
+   The value  of $\Delta C^{\standardstate}_{p}$ can be calculated with:
    \begin{equation*}
    \Delta C^{\standardstate}_{p}=\sum\limits_{i}\nu_{i}\overbar{C}^{\standardstate}_{p,i}
    \end{equation*}
+
    where $\nu_{i}$ is the stoichiometric coefficient of component $i$ (positive if $i$ is a product of the reaction and negative if it's a reactant) and $\overbar{C}^{\standardstate}_{\mathrm{p},i}$ is the molar heat capacity at constant pressure of species $i$.
    On small temperature ranges the heat capacity of substances can be considered independent of temperature. However, on larger temperature intervals such approximation is not acceptable. The dependency of heat capacity from temperature can be expressed in the form:
   \begin{equation*}
-  C_{p}=a+bT+\frac{c}{T^{2}}+...
+  C_{p}=a+bT+\frac{c}{T^{2}}+\cdots
+  \end{equation*}
+  or:
+    \begin{equation*}
+  C_{p}=a+bT+cT^{2}+\cdots
   \end{equation*}
 \end{document}
