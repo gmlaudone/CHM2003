@@ -5,11 +5,78 @@
 \usepackage{amssymb}
 \usepackage{graphicx}
 \usepackage{chemstyle}
+\usepackage{mdframed}
+\usepackage{tikz}
+\usetikzlibrary{matrix}
 \addtolength{\topmargin}{-1in}
 \setlength{\textwidth}{6.3in}
 \setlength{\textheight}{9.5in}
 \newcommand*\diff{\mathop{}\!\mathrm{d}}
 \newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
+
+% code to hide part of the text leaving the blank space in its place
+\ExplSyntaxOn
+\box_new:N \l_mypkg_box
+\int_new:N \l_mypkg_cleanup_int
+\DeclareDocumentCommand{\hideit}{O{1}+m}
+  {
+    \tex_setbox:D \l_mypkg_box \tex_vbox:D
+      {
+        #2\par
+        \dim_zero:N \tex_baselineskip:D
+        \dim_zero:N \tex_lineskip:D
+        \dim_zero:N \tex_lineskiplimit:D
+        \int_set:Nn \l_mypkg_cleanup_int {#1}
+        \mypkg_dismantle_loop:
+      }
+    \tex_unvbox:D \l_mypkg_box
+  }
+\cs_new_protected:Npn \mypkg_dismantle_loop:
+  {
+    \prg_replicate:nn { \l_mypkg_cleanup_int }
+      {
+        \skip_if_eq:nnT { \tex_lastskip:D } { \c_zero_skip } { \tex_unskip:D }
+        \dim_compare:nT { \tex_lastkern:D = \c_zero_dim } { \tex_unkern:D }
+        \int_compare:nT { \tex_lastpenalty:D = \c_zero } { \tex_unpenalty:D }
+      }
+    \skip_if_eq:nnTF { \tex_lastskip:D } { \c_zero_skip }
+      {
+        \dim_compare:nTF { \tex_lastkern:D = \c_zero_dim }
+          {
+            \int_compare:nTF { \tex_lastpenalty:D = \c_zero }
+              {
+                \box_set_to_last:N \l_mypkg_box
+                \box_if_empty:NF \l_mypkg_box
+                  { \mypkg_dismantle_box: }
+              }
+              { \mypkg_dismantle_penalty: }
+          }
+          { \mypkg_dismantle_kern: }
+      }
+      { \mypkg_dismantle_skip: }
+  }
+\cs_new_protected:Npn \mypkg_dismantle_skip:
+  { \mypkg_dismantle_aux:nN { \tex_vskip:D \skip_use:N \tex_lastskip:D } \tex_unskip:D }
+\cs_new_protected:Npn \mypkg_dismantle_kern:
+  { \mypkg_dismantle_aux:nN { \tex_kern:D \dim_use:N \tex_lastkern:D } \tex_unkern:D }
+\cs_new_protected:Npn \mypkg_dismantle_penalty:
+  { \mypkg_dismantle_aux:nN { \tex_penalty:D \int_use:N \tex_lastpenalty:D } \tex_unpenalty:D }
+\cs_new_protected:Npn \mypkg_dismantle_box:
+  { \mypkg_dismantle_aux:nN { \tex_vbox:D to \dim_eval:n { \box_ht:N \l_mypkg_box + \box_dp:N \l_mypkg_box } { } } \scan_stop: }
+\cs_new_protected:Npn \mypkg_dismantle_aux:nN #1#2
+  {
+    \use:x
+      {
+        #2
+        \mypkg_dismantle_loop:
+        #1 \scan_stop:
+      }
+  }
+\ExplSyntaxOff
+
+%conditional compilation for students version of document
+\newif\ifstudents
+%\studentstrue % comment out to hide text and equations
 
 \begin{document}
    \pagestyle{headings}
@@ -27,5 +94,47 @@
       }
    }
    \end{center}
+   \section*{Liquid solutions}
+   So far we focused only on systems containing a single component. Now we'll begin the study of multi-component systems and we'll discuss and quantify the effects of their chemical composition. 
+   The first such system that we'll study is a binary liquid solution in equilibrium with its vapour.  %tikz representation of binary solution.
+   When working with gases, we initially defined a limiting case, an ideal gas, with a behaviour that could be easily described mathematically and to which real gases could be approximated under certain conditions. Similarly we'll now define an \textit{ideal solution}.
+   It was found experimentally by Raoult that in certain binary solutions (usually those made of relatively similar molecules) the partial vapour pressure of each component is proportional to the molar fraction of each species in the liquid phase:
+   \ifstudents \hideit[2]{ \fi
+   \begin{equation*}
+   p_{i}=x_{i}p^{*}_{i}
+   \end{equation*}
+   \ifstudents } \fi
+   where $p^{*}_{i}$ is the vapour pressure of pure component $i$ of the solution. A solution in which all components follow Raoult's law at any value of molar fraction is called an ideal solution.
+   \begin{center}
+   \begin{tikzpicture}[scale=2]
+	\draw (-2.5,2) -- (-2.5,-3) node (v1) [below]{$0$} -- (1.5,-3) node (v2) [below]{$1$} -- 		(1.5,2);
+	\draw[dashed](-2.5,-3) -- node[midway,below] {$p_{\mathrm{A}}$}(1.5,-1) node [right]			{$p^{*}_{\mathrm{A}}$};
+	\draw[dashed](1.5,-3) to node[midway,below] {$p_{\mathrm{B}}$}(-2.5,1) node [left]				{$p^{*}_{\mathrm{B}}$};
+	\draw[-] (-2.5,1)to node[midway,above] {$p$} (1.5,-1);
+	\node at (-0.5,-3) [below]{$x_{\mathrm{A}}$};
 
+	\node at (1.5,-2) {};
+	\end{tikzpicture}
+   \end{center}
+   Few solutions, such as, for example, benzene-toluene solutions, are found be fairly close to an ideal solution, while other solutions show large deviations from the ideal behaviour. However, even for such solutions one of the components, the solvent, as its molar fractions tends to 1 (pure solvent) its experimental behaviour approximates Raoult's law.
+   Another law that was derived experimentally for very dilute solution is Henry's law:
+      \ifstudents \hideit[2]{ \fi
+   \begin{equation*}
+   p_{i}=x_{i}K_{i}
+   \end{equation*}
+   \ifstudents } \fi
+   The vapour pressure of component $i$ is proportional to its molar fraction in the liquid phase, but the proportionality constant is not the vapour pressure of the pure substance, but a different proportionality constant $K_{i}$, which is called Henry's constant. 
+   \begin{center}
+   \begin{tikzpicture}[scale=2]
+	\draw (-2.5,2) -- (-2.5,-3) node (v1) [below]{$0$} -- (1.5,-3) node (v2) [below]{$1$} -- (1.5,2);
+	\draw[dashed](-2.5,-3) -- node[sloped,midway,below] {Raoult's law}(1.5,-1) node [right] (v3) {$p^{*}_{\mathrm{A}}$};
+	\draw[dashed](-2.5,-3) -- node[sloped,midway,above] {Henry's law}(1.5,1.5) node [right]{$K_{\mathrm{A}}$};
+	\node at (-0.5,-3) [below]{$x_{\mathrm{A}}$};
+	\node at (1.5,-2) {};
+	\draw (-2.5,-3);
+	\draw (-2.5,-3) .. controls (0,-0.1) and (0.5,-1.5) .. (1.5,-1);
+   \end{tikzpicture}
+   \end{center}
+   
+   The fact that a very dilute solute does not obey Raoult's law can be explained from a molecular point of view by the fact that in such dilute solution the solvent's molecules will be almost entirely surrounded by solvent molecules. Unless the solvent and the solute are very similar molecules (benzene-toluene), the properties of the solute will be strongly affected by the presence of the solvent.
 \end{document}
