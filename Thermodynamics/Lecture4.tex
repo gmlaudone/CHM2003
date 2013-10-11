@@ -1,0 +1,223 @@
+\documentclass[12pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{chemstyle}
+\usepackage{mdframed}
+\usepackage{cancel}
+\usepackage{tikz}
+\usetikzlibrary{matrix}
+\addtolength{\topmargin}{-1in}
+\setlength{\textwidth}{6.3in}
+\setlength{\textheight}{9.5in}
+\newcommand*\diff{\mathop{}\!\mathrm{d}}
+\newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
+
+% code to hide part of the text leaving the blank space in its place
+\ExplSyntaxOn
+\box_new:N \l_mypkg_box
+\int_new:N \l_mypkg_cleanup_int
+\DeclareDocumentCommand{\hideit}{O{1}+m}
+  {
+    \tex_setbox:D \l_mypkg_box \tex_vbox:D
+      {
+        #2\par
+        \dim_zero:N \tex_baselineskip:D
+        \dim_zero:N \tex_lineskip:D
+        \dim_zero:N \tex_lineskiplimit:D
+        \int_set:Nn \l_mypkg_cleanup_int {#1}
+        \mypkg_dismantle_loop:
+      }
+    \tex_unvbox:D \l_mypkg_box
+  }
+\cs_new_protected:Npn \mypkg_dismantle_loop:
+  {
+    \prg_replicate:nn { \l_mypkg_cleanup_int }
+      {
+        \skip_if_eq:nnT { \tex_lastskip:D } { \c_zero_skip } { \tex_unskip:D }
+        \dim_compare:nT { \tex_lastkern:D = \c_zero_dim } { \tex_unkern:D }
+        \int_compare:nT { \tex_lastpenalty:D = \c_zero } { \tex_unpenalty:D }
+      }
+    \skip_if_eq:nnTF { \tex_lastskip:D } { \c_zero_skip }
+      {
+        \dim_compare:nTF { \tex_lastkern:D = \c_zero_dim }
+          {
+            \int_compare:nTF { \tex_lastpenalty:D = \c_zero }
+              {
+                \box_set_to_last:N \l_mypkg_box
+                \box_if_empty:NF \l_mypkg_box
+                  { \mypkg_dismantle_box: }
+              }
+              { \mypkg_dismantle_penalty: }
+          }
+          { \mypkg_dismantle_kern: }
+      }
+      { \mypkg_dismantle_skip: }
+  }
+\cs_new_protected:Npn \mypkg_dismantle_skip:
+  { \mypkg_dismantle_aux:nN { \tex_vskip:D \skip_use:N \tex_lastskip:D } \tex_unskip:D }
+\cs_new_protected:Npn \mypkg_dismantle_kern:
+  { \mypkg_dismantle_aux:nN { \tex_kern:D \dim_use:N \tex_lastkern:D } \tex_unkern:D }
+\cs_new_protected:Npn \mypkg_dismantle_penalty:
+  { \mypkg_dismantle_aux:nN { \tex_penalty:D \int_use:N \tex_lastpenalty:D } \tex_unpenalty:D }
+\cs_new_protected:Npn \mypkg_dismantle_box:
+  { \mypkg_dismantle_aux:nN { \tex_vbox:D to \dim_eval:n { \box_ht:N \l_mypkg_box + \box_dp:N \l_mypkg_box } { } } \scan_stop: }
+\cs_new_protected:Npn \mypkg_dismantle_aux:nN #1#2
+  {
+    \use:x
+      {
+        #2
+        \mypkg_dismantle_loop:
+        #1 \scan_stop:
+      }
+  }
+\ExplSyntaxOff
+
+%conditional compilation for students version of document
+\newif\ifstudents
+%\studentstrue % comment out to hide text and equations
+
+\begin{document}
+   \pagestyle{headings}
+   \thispagestyle{plain}
+   \newpage
+   \noindent
+   \begin{center}
+   \framebox{
+       \vbox{
+           \hbox to 6in { {\bf CHM2003 Physical Chemistry 2 \hfill October 2013} }
+           \vspace{4mm}
+           \hbox to 6in { {\Large \hfill Thermodynamics   \hfill} }
+           \vspace{2mm}
+           \hbox to 6in { {\it Giuliano Maurizio Laudone \hfill Lecture 4} }
+      }
+   }
+   \end{center}
+   \section*{Chemical equilibrium}
+   \subsection*{Gibbs-Helmholtz equation}
+   For many processes it is useful to know the variation of Gibbs free energy with temperature. During the previous lecture we have seen the fundamental equation: 
+   \begin{equation*}
+   \diff G= V \diff p-S \diff T
+   \end{equation*}
+   which gives:
+   \begin{equation*} 
+   \left(\frac{\partial G}{\partial T}\right)_{p}=-S
+   \end{equation*}
+   Gibbs free energy $G$ is defined as $H-TS$, which we can rearrange and express as: $S = (H-G)/T$. This equation can be also written as:
+   \begin{equation*}
+   -S=\frac{G}{T}-\frac{H}{T}
+   \end{equation*}
+   Since $\left(\frac{\partial G}{\partial T}\right)_{p}=-S$ the previous equation can be written as:
+   \begin{equation*}
+   \left(\frac{\partial G}{\partial T}\right)_{p} -\frac{G}{T} =-\frac{H}{T}
+   \end{equation*}
+   We can show that $ \left(\frac{\partial G}{\partial T}\right)_{p} -\frac{G}{T} = T \left(\frac{\partial (G/T)}{\partial T}\right)_{p} $
+   \begin{mdframed}
+   \textbf{A little bit of maths}\\
+   If a function $ f(x) $ is given by the product of 2 functions $g(x)$ and $h(x)$
+   \begin{equation*}
+   f=g h
+   \end{equation*}
+   its derivative with respect to $x$ is: 
+   \begin{equation*}
+   \frac{\diff f}{\diff x} = g \frac{\diff h}{\diff x}+h \frac{\diff g}{\diff x}
+   \end{equation*}
+   \end{mdframed}
+   We can apply the product rule of derivatives to calculate $\left(\frac{\partial (G/T)}{\partial T}\right)_{p}$
+   \begin{eqnarray*}
+   \left(\frac{\partial (G/T)}{\partial T}\right)_{p} &=& \frac{1}{T} \left(\frac{\partial G}{\partial T}\right)_{p} + G \left(\frac{\partial 1/T}{\partial T}\right)_{p}\\
+   &=& \frac{1}{T} \left(\frac{\partial G}{\partial T}\right)_{p} -G \frac{1}{T^{2}}
+   \end{eqnarray*}
+   By multiplying both sides by $T$:
+   \begin{equation*}
+   T \left(\frac{\partial (G/T)}{\partial T}\right)_{p} = \left(\frac{\partial G}{\partial T}\right)_{p} - \frac{G}{T}
+   \end{equation*}
+   which is what we wanted to prove.
+   
+   We can substitute this result into $\left(\frac{\partial G}{\partial T}\right)_{p} -\frac{G}{T} =-\frac{H}{T}$ and, after dividing both sides by $T$, we obtain:
+   \begin{equation*}
+   \left(\frac{\partial (G/T)}{\partial T}\right)_{p} = -\frac{H}{T^{2}}
+   \end{equation*}
+   which is the \textbf{Gibbs-Helmholtz equation}.
+   \subsection*{Van't Hoff isotherm}
+   The Van't Hoff isotherm correlates the Gibbs free energy of a reaction with its equilibrium constant.
+   For a generic chemical reaction at equilibrium:
+   \begin{equation*}
+   a\mathrm{A}+b\mathrm{B} \rightleftharpoons c\mathrm{C}+d\mathrm{D}
+   \end{equation*}
+   the equilibrium constant is defined:
+   \begin{equation*}
+   K_{\mathrm{eq}}=\frac{a_{\mathrm{C}}^{c}\ a_{\mathrm{D}}^{d}}{a_{\mathrm{A}}^{a}\  a_{\mathrm{B}}^{b}}
+   \end{equation*}
+   where $a_{\mathrm{X}}$ is the activity at equilibrium of the generic X chemical species taking part to the chemical reaction. The activity of a chemical species could be thought of as an \textit{effective concentration}. Using a more generic and compact, but maybe slightly more difficult to follow, mathematical notation we can write the equilibrium constant as:
+   \begin{equation*}
+   K_{\mathrm{eq}}=\prod\limits_{i} a_{i}^{\nu_{i}}
+   \end{equation*}
+   where $\nu_{i}$ is the stoichiometric coefficient of species $i$ and it's positive if $i$ is a product and negative is $i$ is a reactant.
+   During lecture 2 we have seen that for each of the chemical species we can write:
+   \begin{equation*}
+   \mu_{i}=\mu_{i}^{\standardstate}+RT \ln a_{i}
+   \end{equation*}
+   or equivalently:
+   \begin{equation*}
+   \overbar{G}_{i}=\overbar{G}_{i}^{\standardstate}+RT \ln a_{i}
+   \end{equation*}
+   where $\mu_{i}$ is the chemical potential of species $i$, $\overbar{G}_{i}$ is the partial molar free energy of specie $i$ (which is by definition equivalent to its chemical potential) and the superscript $\standardstate$ represents the standard conditions.
+   
+   If we focus our attention to a gas phase reaction we can approximate the activity of each species with its partial pressure, so that the previous equation becomes:
+   \begin{equation*}
+   \overbar{G}_{i}=\overbar{G}_{i}^{\standardstate}+RT \ln p_{i}
+   \end{equation*}
+   For a certain species $i$ with stoichiometric coefficient $\nu_{i}$ we can write:
+   \begin{equation*}
+   \nu_{i}\overbar{G}_{i}-\nu_{i}\overbar{G}_{i}^{\standardstate}=\nu_{i}RT \ln p_{i} = RT \ln p_{i}^{\nu_{i}} 
+   \end{equation*}
+   We can calculate the difference of free energy between the products and the reactants. In the case of the initial $a\mathrm{A}+b\mathrm{B} \rightleftharpoons c\mathrm{C}+d\mathrm{D}$ this would give:
+   \begin{align*}
+   (c\overbar{G}_{\mathrm{C}}-c\overbar{G}^{\standardstate}_{\mathrm{C}})+(d\overbar{G}_{\mathrm{D}}-d\overbar{G}^{\standardstate}_{\mathrm{D}})-(a\overbar{G}_{\mathrm{A}}-a\overbar{G}^{\standardstate}_{\mathrm{A}})-(b\overbar{G}_{\mathrm{B}}-b\overbar{G}^{\standardstate}_{\mathrm{B}}) =\\ RT\ln p_{\mathrm{C}}^{c}+RT\ln p_{\mathrm{D}}^{d}-RT\ln p_{\mathrm{A}}^{a}-RT\ln p_{\mathrm{B}}^{b}
+   \end{align*}
+   The left hand term can be expressed as $\Delta G_{\mathrm{r}}-\Delta G^{\standardstate}_{\mathrm{r}}$ while the left hand side can be expressed as $RT\ln \frac{p_{\mathrm{C}}^{c}\ p_{\mathrm{D}}^{d}}{p_{\mathrm{A}}^{a}\  p_{\mathrm{B}}^{b}}$ or $RT \ln K_{\mathrm{eq}}$.
+   Therefore:
+   \begin{equation*}
+   \Delta G_{\mathrm{r}}-\Delta G^{\standardstate}_{\mathrm{r}}=RT \ln K_{\mathrm{eq}}
+   \end{equation*}
+   However, we are in a state of equilibrium and $\Delta G_{\mathrm{r}} = 0$ and as a consequence:
+   \begin{equation*}
+   \Delta G^{\standardstate}_{\mathrm{r}}=-RT \ln K_{\mathrm{eq}}
+   \end{equation*}
+   \subsection*{Van't Hoff isochore}
+   The Van't Hoff isochore allows us to quantify how the equilibrium constant varies with temperature.
+   During lecture 3 we have seen that the fundamental equation can be expressed as $\diff G = V\diff p-S\diff T$, which led us to the conclusion that $\left(\frac{\partial G}{\partial T}\right)_{p}=-S$. Therefore for a generic reaction we can write:
+   \begin{equation*}
+   \left(\frac{\partial \Delta G^{\standardstate}_{\mathrm{r}}}{\partial T}\right)_{p}=-\Delta S^{\standardstate}_{\mathrm{r}}
+   \end{equation*}
+   We also know that $\Delta G^{\standardstate}_{\mathrm{r}} = \Delta H^{\standardstate}_{\mathrm{r}}-T\Delta S^{\standardstate}_{\mathrm{r}}$, which we can rearrange as $\Delta S^{\standardstate}_{\mathrm{r}} = \frac{\Delta H^{\standardstate}_{\mathrm{r}}-\Delta G^{\standardstate}_{\mathrm{r}}}{T}$.
+   Therefore:
+   \begin{equation*}
+   \left(\frac{\partial \Delta G^{\standardstate}_{\mathrm{r}}}{\partial T}\right)_{p}=-\Delta S^{\standardstate}_{\mathrm{r}} = \frac{\Delta G^{\standardstate}_{\mathrm{r}}-\Delta H^{\standardstate}_{\mathrm{r}}}{T}
+   \end{equation*}
+   But from the Van't Hoff isotherm we know that $\Delta G^{\standardstate}_{\mathrm{r}} =-RT \ln K_{\mathrm{eq}}$. Differentiating this by parts:
+   \begin{equation*}
+   \frac{\partial\Delta G^{\standardstate}_{\mathrm{r}}}{\partial T}=-R\ln K_{\mathrm{eq}}-RT \frac{\partial \ln K_{\mathrm{eq}}}{\partial T}
+   \end{equation*}
+   Therefore:
+   \begin{equation*}
+  \cancel{-R\ln K_{\mathrm{eq}}}-RT \frac{\partial \ln K_{\mathrm{eq}}}{\partial T}=\frac{\cancel{\Delta G^{\standardstate}_{\mathrm{r}}}-\Delta H^{\standardstate}_{\mathrm{r}}}{T}
+   \end{equation*}
+   from which:
+   \begin{equation*}
+   \frac{\Delta H^{\standardstate}_{\mathrm{r}}}{T}=RT \frac{\partial \ln K_{\mathrm{eq}}}{\partial T}
+   \end{equation*}   
+   and finally:
+   \begin{equation*}
+   \frac{\partial \ln K_{\mathrm{eq}}}{\partial T} = \frac{\Delta H^{\standardstate}_{\mathrm{r}}}{RT^{2}}
+   \end{equation*} 
+   which is the Van't Hoff equation.
+  
+   We can integrate this differential equation and, assuming that the enthalpy change during the reaction does not depend on the value of temperature, we obtain:
+    \begin{equation*}
+   \ln K_{\mathrm{eq,2}}=\ln K_{\mathrm{eq,1}}-\frac{\Delta H^{\standardstate}_{\mathrm{r}}}{R}\left(\frac{1}{T_{2}}-\frac{1}{T_{1}}\right)
+   \end{equation*} 
+\end{document}
