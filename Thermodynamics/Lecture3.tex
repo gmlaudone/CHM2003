@@ -101,9 +101,11 @@
    \diff U = \diff q_{\mathrm{rev}} -p \diff V
    \end{equation*}
    However, according to the second law of thermodynamics, $\diff q_{\mathrm{rev}}=T\diff S$. Substituting: 
+   \ifstudents \hideit[2]{ \fi
    \begin{equation*}
    \diff U = T\diff S-p \diff V
    \end{equation*}
+   \ifstudents } \fi
    By combining the first and the second law of thermodynamics we obtained an expression of the differential of the internal energy which is dependent only on state variables and as such is valid for any closed system undergoing any transformation, both reversible and irreversible, even though we derived it for a reversible process. This simple equation suggests that the internal energy of a closed system changes when the entropy and/or the volume change. This suggests that the internal energy is a function of $S$ and $V$. We could express $U$ as a function of other combinations of state variables, but, due to the simplicity of the equation we just derived,
    \begin{equation*}
    U=U(S,V)
@@ -115,23 +117,27 @@
    \begin{equation*}
    \diff f = \left(\frac{\partial f}{\partial x}\right)_{y}+\left(\frac{\partial f}{\partial y}\right)_{x}
    \end{equation*}
-   The term $\left(\frac{\partial f}{\partial x}\right)_{y}$ is the partial derivative of $f$ with respect to $x$ when $y$ is constant and it represent the slope (or gradient) of $f$ when $y$ is constant. Similarly $\left(\frac{\partial f}{\partial y}\right)_{x}$ is the partial derivative of $f$ with respect to $y$ when $x$ is constant.
+   The term $\left(\frac{\partial f}{\partial x}\right)_{y}$ is the partial derivative of $f$ with respect to $x$ when $y$ is constant and it represents the slope (or gradient) of $f$ when $y$ is constant. Similarly $\left(\frac{\partial f}{\partial y}\right)_{x}$ is the partial derivative of $f$ with respect to $y$ when $x$ is constant.
    \end{mdframed}
    We can express the differential of the internal energy as:
+   \ifstudents \hideit[2]{ \fi
    \begin{equation*}
    \diff U=\left(\frac{\partial U}{\partial S}\right)_{V} \diff S+\left(\frac{\partial U}{\partial V}\right)_{S} \diff V
    \end{equation*}
+   \ifstudents } \fi
    and by comparison with the previous equation we obtain:
    \begin{align*}
    \left(\frac{\partial U}{\partial S}\right)_{V}=T &&\mathrm{and}&& 
    \left(\frac{\partial U}{\partial V}\right)_{S}=-p
    \end{align*}
-   We have defined enthalpy $H = U+pv$. We can write its differential as:
+   We have defined enthalpy $H = U+pV$. We can write its differential as:
+   \ifstudents \hideit[2]{ \fi
    \begin{eqnarray*}
    \diff H &=& \diff U+\diff(pV)= \diff U+p\diff V + V\diff p \\
    &=&T\diff S-p\diff V+p\diff V + V\diff p\\
    &=& T\diff S+V\diff p
    \end{eqnarray*}
+   \ifstudents } \fi
    Therefore we can express enthalpy as a function of $S$ and $p$. It's differential is:
    \begin{equation*}
    \diff H=\left(\frac{\partial H}{\partial S}\right)_{p} \diff S+\left(\frac{\partial H}{\partial p}\right)_{S} \diff p
@@ -142,12 +148,14 @@
    \left(\frac{\partial H}{\partial p}\right)_{S}=V
    \end{align*}
    The same derivation can be applied to both Gibbs ($G=H-TS$) and Helmholtz ($A=U-TS$) free energy. This gives us:
+   \ifstudents \hideit[2]{ \fi
    \begin{equation*}
    \diff A= -p \diff V -S \diff T 
    \end{equation*}
    \begin{equation*}
    \diff G= V \diff p-S \diff T
    \end{equation*}
+   \ifstudents } \fi
    which also leads to:
    \begin{align*}
    \left(\frac{\partial A}{\partial V}\right)_{T}=-p &&\mathrm{and}&& 
@@ -159,7 +167,7 @@
    \left(\frac{\partial G}{\partial T}\right)_{p}=-S
    \end{align*}
    \subsection*{Maxwell's relations}
-   Internal energy, enthalpy and free energy are state functions and as such their differentials  are exact differential.
+   Internal energy, enthalpy and free energy are state functions and as such their differentials  are exact differentials.
    \begin{mdframed}
    \textbf{A little bit more maths}\\
    If the differential of a function of 2 variables  $f=f(x,y)$ is given by:
@@ -172,19 +180,21 @@
    \end{equation*}
    \end{mdframed}
    Because of this property of exact differential we can derive a series of equations, the \textbf{Maxwell's relations}:
+   \ifstudents \hideit[2]{ \fi
    \begin{eqnarray*}
    \left(\frac{\partial T}{\partial V}\right)_{S}&=&-\left(\frac{\partial p}{\partial S}\right)_{V}\\ 
    \left(\frac{\partial T}{\partial p}\right)_{S}&=&\left(\frac{\partial V}{\partial S}\right)_{p}\\
    \left(\frac{\partial S}{\partial V}\right)_{T}&=&\left(\frac{\partial p}{\partial T}\right)_{V}\\
    -\left(\frac{\partial S}{\partial p}\right)_{T}&=&\left(\frac{\partial V}{\partial T}\right)_{p}
    \end{eqnarray*} 
-   While the first 2 of these relations are not particularly interesting or useful, the remaining 2 are very useful as they relate the isothermal change in entropy with volume and the isothermal change in entropy with pressure to easily measurable quantities, such as changes in pressure or volume with temperature. 
+   \ifstudents } \fi
+   While the first 2 of these relations are not particularly interesting or useful, the remaining 2 are very useful as they relate the isothermal change in entropy, with respect to volume, and the isothermal change in entropy, with respect to pressure, to easily measurable quantities, such as changes in pressure or volume with temperature. 
    \subsection*{Clapeyron equation}
    Let's consider a single component liquid system in equilibrium with its vapour. As we are in an equilibrium state, the chemical potential of the single component must be the same in both phases:
    \begin{equation*}
    \mu_{\mathrm{liq}}=\mu_{\mathrm{vap}}
    \end{equation*}
-   Since the chemical potential $mu$ has been defined as the molar free energy, and taking into account the fundamental equation $\diff G= V \diff p-S \diff T$ we write the previous equation as:
+   Since the chemical potential $\mu$ has been defined as the molar free energy, and taking into account the fundamental equation $\diff G= V \diff p-S \diff T$ we write the previous equation as:
    \begin{equation*}
    \overbar{V}_{\mathrm{liq}}\diff p_{\mathrm{liq}} - \overbar{S}_{\mathrm{liq}} \diff T_{\mathrm{liq}} = \overbar{V}_{\mathrm{vap}}\diff p_{\mathrm{vap}} - \overbar{S}_{\mathrm{vap}} \diff T_{\mathrm{vap}} 
    \end{equation*}
@@ -195,35 +205,62 @@
    (\overbar{V}_{\mathrm{liq}}-\overbar{V}_{\mathrm{vap}}) \diff p = (\overbar{S}_{\mathrm{liq}}-\overbar{S}_{\mathrm{vap}})\diff T
    \end{equation*}
    which can be written as:
+   \ifstudents \hideit[2]{ \fi
    \begin{equation*}
    \frac{\diff p}{\diff T}= \frac{\overbar{S}_{\mathrm{liq}}-\overbar{S}_{\mathrm{vap}}}{\overbar{V}_{\mathrm{liq}}-\overbar{V}_{\mathrm{vap}}}= \frac{\Delta \overbar{S}_{\mathrm{vapn}}}{\Delta \overbar{V}_{\mathrm{vapn}}}
    \end{equation*}
-   which is the mathematical formulation of Clapeyron equation. We are at equilibrium ($\Delta \overbar{G}_{\mathrm{vapn}} = 0$ so we could replace $\Delta \overbar{S}_{\mathrm{vapn}}$ with $\frac{\Delta \overbar{H}_{\mathrm{vapn}}}{T}$ which results in an alternative form of the Clapeyron equation:
+   \ifstudents } \fi
+   which is the mathematical formulation of Clapeyron equation. We are at equilibrium ($\Delta \overbar{G}_{\mathrm{vapn}} = 0$) so we could replace $\Delta \overbar{S}_{\mathrm{vapn}}$ with $\frac{\Delta \overbar{H}_{\mathrm{vapn}}}{T}$ which results in an alternative form of the Clapeyron equation:
+   \ifstudents \hideit[2]{ \fi
    \begin{equation*}
    \frac{\diff p}{\diff T}=  \frac{\Delta \overbar{H}_{\mathrm{vapn}}}{T \Delta \overbar{V}_{\mathrm{vapn}}}
    \end{equation*}
+   \ifstudents } \fi
    What we have now derived for a liquid-vapour equilibrium is actually valid for any phase equilibrium and we could write the Clapeyron equation for a generic phase transformation as:
+   \ifstudents \hideit[2]{ \fi
    \begin{equation*}
    \frac{\diff p}{\diff T}=\frac{\Delta \overbar{S}_{\mathrm{transf}}}{\Delta \overbar{V}_{\mathrm{transf}}} = \frac{\Delta \overbar{H}_{\mathrm{transf}}}{T \Delta \overbar{V}_{\mathrm{transf}}}
    \end{equation*}
+   \ifstudents } \fi
    If we plotted the phase diagram of a pure substance in a $p$-$T$ graph, we could calculate the slope of the co-existence curve (where 2 phases exist at the same time), using only properties which are easy to measure, such as enthalpy and volume changes.
    \subsection*{Clausius-Clapeyron equation}
    The Clapeyron equation is an exact equation. However, in the case of liquid-vapour and solid-vapour systems, we can introduce some approximations. First of all $\Delta V_{\mathrm{vapn}}$ and  $\Delta V_{\mathrm{subl}}$ could be approximated to the molar volume of the vapour $\overbar{V}_{\mathrm{vap}}$, because this is much larger than the molar volume of the condensed phases. We could also approximate the vapour phase to an ideal gas, so that $\overbar{V}_{\mathrm{vap}} = RT/p$. Therefore, in the case of liquid-vapour equilibrium, we can write:
+   \ifstudents \hideit[2]{ \fi
    \begin{equation*}
    \frac{\diff p}{\diff T} \approx \frac{p \Delta \overbar{H}_{\mathrm{vapn}}}{RT^{2} }
    \end{equation*}
+   \ifstudents } \fi
    We can rearrange the equation and replace the resulting $\diff p/p$ with $\diff \ln p$, so the previous equation becomes:
-      \begin{equation*}
+   \ifstudents \hideit[2]{ \fi
+   \begin{equation*}
    \frac{\diff \ln p}{\diff T} = \frac{\Delta \overbar{H}_{\mathrm{vapn}}}{RT^{2} }
    \end{equation*}
+   \ifstudents } \fi
    which is the \textbf{Clausius-Clapeyron equation}.
    We can also introduce another approximation, by considering $\Delta \overbar{H}_{\mathrm{vapn}}$ constant with temperature. We can then integrate the previous equation:
    \begin{equation*}
    \int \limits_{p_{1}}^{p_{2}} \diff \ln p = \int \limits_{T_{1}}^{T_{2}} \frac{\Delta \overbar{H}_{\mathrm{vapn}}}{RT^{2} } \diff T = \frac{\Delta \overbar{H}_{\mathrm{vapn}}}{R}\int \limits_{T_{1}}^{T_{2}} \frac{\diff T}{T^{2}}
    \end{equation*}
    and finally:
+   \ifstudents \hideit[2]{ \fi
    \begin{equation*}
    \ln \frac{p_{2}}{p_{1}}=-\frac{\Delta \overbar{H}_{\mathrm{vapn}}}{R} \left(\frac{1}{T_{2}}-\frac{1}{T_{1}}\right)
    \end{equation*}   
-   which is the integrated form of the Clausius-Clapeyron equation. Obviously we could obtain the same equations for a solid-gas equilibrium by simply replacing $\Delta \overbar{H}_{\mathrm{vapn}}$ with $\Delta \overbar{H}_{\mathrm{subl}}$.
+   \ifstudents } \fi
+   which is the integrated form of the Clausius-Clapeyron equation. This equation can be used to calculate the saturated vapour pressure at different temperatures if the enthalpy of vaporization is known. 
+    Obviously we could obtain the same equations for a solid-gas equilibrium by simply replacing $\Delta \overbar{H}_{\mathrm{vapn}}$ with $\Delta \overbar{H}_{\mathrm{subl}}$.
+   \subsection*{Observations on the Clausius-Clapeyron equation}
+   As pressure $p_{1}$ and temperature $T_{1}$ are known, the previous equation can also be presented in the form:
+   \begin{equation*}
+   \ln p=-\frac{\Delta \overbar{H}_{\mathrm{vapn}}}{R T} + \mathrm{constant}
+   \end{equation*} 
+   We can plot the value of $\ln p$ vs $1/T$ and we'll obtain a straight line graph with slope  $-\frac{\Delta \overbar{H}_{\mathrm{vapn}}}{R}$. It can be found that, often, experimental data also follow this linear trend and they match the Clausius-Clapeyron results closely. Does this mean that the Clausius-Clapeyron equation is a good theory? Considering the many approximations that were made during its derivation, this seems unlikely. And in fact, we can see that the close match between experimental data and the Clausius-Clapeyron equation over relatively small temperature ranges, is just the result of a mere coincidence.
+   
+   During the derivation of the Clausius-Clapeyron equation we approximated the vapour phase to an ideal gas. This approximation only holds at low values of pressure. If we corrected the Clausius-Clapeyron equation to take into account the deviation of a real gas (as a saturated vapour is most likely to be) from the ideal behaviour, this would introduce, as temperature increases, a positive deviation from the linear graph of the original Clausius-Clapeyron equation.
+   
+   We also know that the enthalpy of phase changes is never truly independent of temperature. However, by correcting the Clausius-Clapeyron equation to take into account this temperature dependency we would introduce a negative deviation from the initial linear graph, as temperature increases.
+   
+   The non-ideality of real gas and the temperature dependence of the enthalpy of vaporization have opposite effects, which, very conveniently, cancel out and this explains why such a 'bad' theory can obtain such good match with experimental evidence.
+   
+   But why does this matter? If the equation works, why should we be concerned about the approximations we used and their effects? The answer is that if we extend the experimental temperature range, the Clausius-Clapeyron equation will progressively break down. As we approach the critical point, the assumption that the enthalpy of vaporisation is constant with temperature fails completely and so does the Clausius-Clapeyron equation. 
 \end{document}

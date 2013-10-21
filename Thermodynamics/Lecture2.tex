@@ -111,6 +111,7 @@
    \end{equation*}
    \ifstudents } \fi
    where $p^{*}_{i}$ is the vapour pressure of pure component $i$ of the solution. A solution in which all components follow Raoult's law at any value of molar fraction is called an ideal solution.
+   \ifstudents \hideit[2]{ \fi
    \begin{center}
    \begin{tikzpicture}[scale=2]
 	\draw (-2.5,2) -- (-2.5,-3) node (v1) [below]{$0$} -- (1.5,-3) node (v2) [below]{$1$} -- 		(1.5,2);
@@ -122,6 +123,7 @@
 	\node at (1.5,-2) {};
 	\end{tikzpicture}
    \end{center}
+   \ifstudents } \fi
    Few solutions, such as, for example, benzene-toluene solutions, are found to be fairly close to an ideal solution, while other solutions show large deviations from the ideal behaviour. However, even for such solutions one of the components, the solvent, as its molar fractions tends to 1 (pure solvent) its experimental behaviour approximates Raoult's law.
    
    Henry's law was derived experimentally for very dilute solution is and it can be expressed as:
@@ -158,7 +160,7 @@
    \end{tikzpicture}
    \end{center}
    
-   The fact that a very dilute solute does not obey Raoult's law can be explained from a molecular point of view by the fact that in such dilute solution the solvent's molecules will be almost entirely surrounded by solvent molecules. Unless the solvent and the solute are very similar molecules (benzene-toluene), the properties of the solute will be strongly affected by the presence of the solvent.
+   The fact that a very dilute solute does not obey Raoult's law can be explained from a molecular point of view by the fact that in such dilute solution the solute's molecules will be almost entirely surrounded by solvent molecules. Unless the solvent and the solute are very similar molecules (benzene-toluene), the properties of the solute will be strongly affected by the presence of the solvent.
    \subsection*{Phase diagrams}
    We have just seen that for a solution that obeys Raoul't law, an ideal solution, the total vapour pressure of the solution varies linearly with composition and the straight line that joins $p^{*}_{\mathrm{A}}$ and $p^{*}_{\mathrm{B}}$ is called the \textit{bubble line}. However this does not give us any information on the composition of the vapour phase. It is reasonable to expect that this will be richer in the more volatile of the 2 components, but can we calculate its composition? From Raoult's law we know the partial pressures of the 2 components of the solution and from \textit{Dalton's law} we know that the molar fraction of each component in the vapour phase is proportional to its partial pressure. For the 2 components A and B Dalton's law can be written as $y_{\mathrm{A}}=p_{\mathrm{A}}/{p}$ and $y_{\mathrm{B}}=p_{\mathrm{B}}/{p}$. With a few simple algebraic substitutions we obtain the value of $y_{\mathrm{A}}$ and $y_{\mathrm{B}}$:
    \begin{equation*}
@@ -182,6 +184,7 @@
     \end{tikzpicture}
    \end{center}
    By using a pressure-composition or $p-x$ diagram, we can easily calculate the composition of both phases for any isothermal change of pressure. If we started with a liquid solution represented by point 1 on the diagram and we reduced the pressure keeping the temperature constant until we reached point 2 on the bubble line, we could calculate the composition of the corresponding vapour phase. This can be achieved by simply moving to the dew line at the same pressure (point 2').
+   \ifstudents \hideit[2]{ \fi   
    \begin{center}
     \begin{tikzpicture}[scale=2]
 	\draw (-2.5,2)node [left]{$p$} -- (-2.5,-3) node (v1) [below]{$0$} -- (1.5,-3) node (v2) [below]{$1$} -- 		(1.5,2);
@@ -200,7 +203,7 @@
     \draw[dotted] (0.5,-0.5) to (0.5,-3) node [right,yshift=0.2cm]{$x_{\mathrm{A}}(2)$};
     \end{tikzpicture}
    \end{center}
-   
+   \ifstudents } \fi
    Often in chemical processes it's easier to achieve phase changes by changing the temperature keeping the pressure constant, rather than the other way around. In this case it is useful to represent phase equilibrium and the composition of the 2 phases at different temperatures. An example of these temperature-composition (or $T-x$) diagrams is shown in the following figure. 
    \begin{center}
     \begin{tikzpicture}[scale=2]
@@ -271,18 +274,22 @@
    In this case it is not possible to separate the mixture into its components by distillation. The solution forms an \textbf{azeotrope}: the liquid and the vapour phase have the same composition and the distillation is not able to proceed any further.
    \subsection*{Chemical potential}
    How can we fit ideal and real solutions in the picture of thermodynamics that we have drawn so far? We have initially defined the internal energy of a system $U$ and subsequently we have introduced the work of expansion and contraction and the state function enthalpy $H$. Then we discussed entropy $S$ and finally we combined all these different thermodynamical drivers into the definition of Gibbs free energy $G$. What's missing in order to complete the picture is something dependent on the amount of substance\footnote{Actually the electrochemical potential is also missing, and it will be discussed in a different part of this module.}. We define the \textbf{chemical potential} of a pure substance as:
+   \ifstudents \hideit[2]{ \fi
    \begin{equation*}
    \mu = \left(\frac{\partial G}{\partial n}\right)_{T,p}
    \end{equation*}
+   \ifstudents } \fi
    which is the variation in Gibbs free energy caused by an infinitesimal change of amount of substance, when temperature and pressure remain constant. So, in the case of a pure substance, the chemical potential is the molar free energy.
    For a perfect gas:
    \begin{equation*}
    \mu =\mu^{\standardstate}+RT\ln\frac{p}{p^{\standardstate}} 
    \end{equation*}
    Similarly we can define the chemical potential for a multi-component system as:
+   \ifstudents \hideit[2]{ \fi
    \begin{equation*}
    \mu_{i} = \left(\frac{\partial G}{\partial n_{i}}\right)_{T,p,n_{j\neq i}}
    \end{equation*}
+   \ifstudents } \fi
    which is the variation in Gibbs free energy caused by an infinitesimal change of amount of substance $i$, when temperature, pressure and amount of all other substances remain constant. Alternatively we could say that the chemical potential, in a multi-component system, is the partial molar free energy.
    In an ideal solution: 
   \begin{equation*}
@@ -294,7 +301,7 @@
   \mu_{i,\mathrm{l}} =\mu^{*}_{i,\mathrm{l}}+RT\ln a_{i} 
   \end{equation*}
   Why is chemical potential important in the study of thermodynamical equilibrium? Because it contains information about how changes of system composition affect the state of equilibrium. For a system to be in equilibrium the chemical potential $\mu_{i}$ of each species $i$ must be the same in each part of the system.
-  \subsection*{Solubility}
+  \subsection*{Ideal solubility}
   We can use the concept of chemical potential to calculate the solubility of a solid solute in a solvent. We consider the pure solid species A, the solute, in equilibrium with a solution containing the solute and a solvent. In such state of equilibrium the chemical potential of the solute in the 2 phases must be the same. We can express this as:
    \begin{equation*}
    \mu_{\mathrm{A,solution}}(T,p,x_{\mathrm{A}}) = \mu_{\mathrm{A,solid}}(T,p)
@@ -312,8 +319,10 @@
    \ln x_{\mathrm{A}} = -\frac{\Delta G_{\mathrm{A,fus}}}{RT}
    \end{equation*} 
    We would like to calculate the value of $x_{\mathrm{A}}$ as a function of temperature. A full derivation of the following results would have to make use of the \textbf{Gibbs-Helmholtz equation}, which we will derive during one of the following lectures. Therefore, at this stage I will simply show you the resulting equation while the complete derivation will be shown at a later stage. The solubility at temperature $T$ is given by:
+   \ifstudents \hideit[2]{ \fi
    \begin{equation*}
    \ln x_{\mathrm{A}} = -\frac{\Delta H_{\mathrm{A,fus}}}{R}(\frac{1}{T}-\frac{1}{T^{*}_{\mathrm{A}}})
    \end{equation*}
+   \ifstudents } \fi
 where $T^{*}_{\mathrm{A}}$ is the melting point of species A.
 \end{document}
