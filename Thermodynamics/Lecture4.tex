@@ -126,10 +126,14 @@
    \end{equation*}
    \end{mdframed}
    We can apply the product rule of derivatives to calculate $\left(\frac{\partial (G/T)}{\partial T}\right)_{p}$
+   \ifstudents \hideit[2]{ \fi
+
    \begin{eqnarray*}
    \left(\frac{\partial (G/T)}{\partial T}\right)_{p} &=& \frac{1}{T} \left(\frac{\partial G}{\partial T}\right)_{p} + G \left(\frac{\partial 1/T}{\partial T}\right)_{p}\\
    &=& \frac{1}{T} \left(\frac{\partial G}{\partial T}\right)_{p} -G \frac{1}{T^{2}}
    \end{eqnarray*}
+      
+   \ifstudents } \fi
    By multiplying both sides by $T$:
    \begin{equation*}
    T \left(\frac{\partial (G/T)}{\partial T}\right)_{p} = \left(\frac{\partial G}{\partial T}\right)_{p} - \frac{G}{T}
@@ -137,11 +141,13 @@
    which is what we wanted to prove.
    
    We can substitute this result into $\left(\frac{\partial G}{\partial T}\right)_{p} -\frac{G}{T} =-\frac{H}{T}$ and, after dividing both sides by $T$, we obtain:
+   \ifstudents \hideit[2]{ \fi
    \begin{equation*}
    \left(\frac{\partial (G/T)}{\partial T}\right)_{p} = -\frac{H}{T^{2}}
    \end{equation*}
+   \ifstudents } \fi
    which is the \textbf{Gibbs-Helmholtz equation}.
-   \subsection*{Van't Hoff isotherm}
+   \subsection*{The equilibrium constant and the Van't Hoff isotherm}
    The Van't Hoff isotherm correlates the Gibbs free energy of a reaction with its equilibrium constant.
    For a generic chemical reaction at equilibrium:
    \begin{equation*}
@@ -156,6 +162,19 @@
    K_{\mathrm{eq}}=\prod\limits_{i} a_{i}^{\nu_{i}}
    \end{equation*}
    where $\nu_{i}$ is the stoichiometric coefficient of species $i$ and it's positive if $i$ is a product and negative is $i$ is a reactant.
+   If the systems has a nearly ideal behaviour we can approximate the constant of equilibrium to 
+   \begin{equation*}
+   K_{c}=\frac{[\mathrm{C}]^{c} [\mathrm{D}]^{d}}{[\mathrm{A}]^{a}\  [\mathrm{B}]^{b}}
+   \end{equation*}
+   In the case of a gas phase reaction the activity of each species $i$ can be replaced by the ratio $f_{i}/f_{i}^{\standardstate}$, where $f_{i}$ is the fugacity of species $i$ (which could be thought of as an effective partial pressure) and $f_{i}^{\standardstate}$ is the fugacity in the standard state. However, we choose the standard state as the pure ideal gas at the pressure of 1 bar, and  $f_{i}^{\standardstate} = 1\ \mathrm{bar}$. The equilibrium constant for a gas phase reaction can be expressed as:
+   \begin{equation*}
+   K_{\mathrm{eq}}=\frac{f_{\mathrm{C}}^{c}\ f_{\mathrm{D}}^{d}}{f_{\mathrm{A}}^{a}\  f_{\mathrm{B}}^{b}}
+   \end{equation*}
+   If the pressure in the system is low, the equilibrium constant can be approximated to:
+   \begin{equation*}
+      K_{p}=\frac{p_{\mathrm{C}}^{c}\ p_{\mathrm{D}}^{d}}{p_{\mathrm{A}}^{a}\  p_{\mathrm{B}}^{b}}
+   \end{equation*}
+   
    During lecture 2 we have seen that for each of the chemical species we can write:
    \begin{equation*}
    \mu_{i}=\mu_{i}^{\standardstate}+RT \ln a_{i}
@@ -166,27 +185,33 @@
    \end{equation*}
    where $\mu_{i}$ is the chemical potential of species $i$, $\overbar{G}_{i}$ is the partial molar free energy of specie $i$ (which is by definition equivalent to its chemical potential) and the superscript $\standardstate$ represents the standard conditions.
    
-   If we focus our attention to a gas phase reaction we can approximate the activity of each species with its partial pressure, so that the previous equation becomes:
+   If, for simplicity, we focus our attention on a low-pressure gas phase reaction at equilibrium, we can approximate the activity of each species with its partial pressure, so that the previous equation becomes:
    \begin{equation*}
    \overbar{G}_{i}=\overbar{G}_{i}^{\standardstate}+RT \ln p_{i}
    \end{equation*}
    For a certain species $i$ with stoichiometric coefficient $\nu_{i}$ we can write:
+   \ifstudents \hideit[2]{ \fi
    \begin{equation*}
    \nu_{i}\overbar{G}_{i}-\nu_{i}\overbar{G}_{i}^{\standardstate}=\nu_{i}RT \ln p_{i} = RT \ln p_{i}^{\nu_{i}} 
    \end{equation*}
+   \ifstudents } \fi
    We can calculate the difference of free energy between the products and the reactants. In the case of the initial $a\mathrm{A}+b\mathrm{B} \rightleftharpoons c\mathrm{C}+d\mathrm{D}$ this would give:
    \begin{align*}
    (c\overbar{G}_{\mathrm{C}}-c\overbar{G}^{\standardstate}_{\mathrm{C}})+(d\overbar{G}_{\mathrm{D}}-d\overbar{G}^{\standardstate}_{\mathrm{D}})-(a\overbar{G}_{\mathrm{A}}-a\overbar{G}^{\standardstate}_{\mathrm{A}})-(b\overbar{G}_{\mathrm{B}}-b\overbar{G}^{\standardstate}_{\mathrm{B}}) =\\ RT\ln p_{\mathrm{C}}^{c}+RT\ln p_{\mathrm{D}}^{d}-RT\ln p_{\mathrm{A}}^{a}-RT\ln p_{\mathrm{B}}^{b}
    \end{align*}
-   The left hand term can be expressed as $\Delta G_{\mathrm{r}}-\Delta G^{\standardstate}_{\mathrm{r}}$ while the left hand side can be expressed as $RT\ln \frac{p_{\mathrm{C}}^{c}\ p_{\mathrm{D}}^{d}}{p_{\mathrm{A}}^{a}\  p_{\mathrm{B}}^{b}}$ or $RT \ln K_{\mathrm{eq}}$.
+   The left hand term can be expressed as $\Delta G_{\mathrm{r}}-\Delta G^{\standardstate}_{\mathrm{r}}$, while the right hand side can be expressed as $RT\ln \frac{p_{\mathrm{C}}^{c}\ p_{\mathrm{D}}^{d}}{p_{\mathrm{A}}^{a}\  p_{\mathrm{B}}^{b}}$ or $RT \ln K_{p}$.
    Therefore:
    \begin{equation*}
-   \Delta G_{\mathrm{r}}-\Delta G^{\standardstate}_{\mathrm{r}}=RT \ln K_{\mathrm{eq}}
+   \Delta G_{\mathrm{r}}-\Delta G^{\standardstate}_{\mathrm{r}}=RT \ln K_{p}
    \end{equation*}
    However, we are in a state of equilibrium and $\Delta G_{\mathrm{r}} = 0$ and as a consequence:
+   \ifstudents \hideit[2]{ \fi
    \begin{equation*}
-   \Delta G^{\standardstate}_{\mathrm{r}}=-RT \ln K_{\mathrm{eq}}
-   \end{equation*}
+   \Delta G^{\standardstate}_{\mathrm{r}}=-RT \ln K_{p}
+   \end{equation*}   
+   \ifstudents } \fi
+   
+   The equation we derived for a gas phase reaction at low pressure can be extended to any reaction by replacing $K_{p}$ with the exact value $K_{\mathrm{eq}}$.
    \subsection*{Van't Hoff isochore}
    The Van't Hoff isochore allows us to quantify how the equilibrium constant varies with temperature.
    During lecture 3 we have seen that the fundamental equation can be expressed as $\diff G = V\diff p-S\diff T$, which led us to the conclusion that $\left(\frac{\partial G}{\partial T}\right)_{p}=-S$. Therefore for a generic reaction we can write:
@@ -199,21 +224,26 @@
    \left(\frac{\partial \Delta G^{\standardstate}_{\mathrm{r}}}{\partial T}\right)_{p}=-\Delta S^{\standardstate}_{\mathrm{r}} = \frac{\Delta G^{\standardstate}_{\mathrm{r}}-\Delta H^{\standardstate}_{\mathrm{r}}}{T}
    \end{equation*}
    But from the Van't Hoff isotherm we know that $\Delta G^{\standardstate}_{\mathrm{r}} =-RT \ln K_{\mathrm{eq}}$. Differentiating this by parts:
+   \ifstudents \hideit[2]{ \fi
    \begin{equation*}
    \frac{\partial\Delta G^{\standardstate}_{\mathrm{r}}}{\partial T}=-R\ln K_{\mathrm{eq}}-RT \frac{\partial \ln K_{\mathrm{eq}}}{\partial T}
    \end{equation*}
+   
    Therefore:
    \begin{equation*}
   \cancel{-R\ln K_{\mathrm{eq}}}-RT \frac{\partial \ln K_{\mathrm{eq}}}{\partial T}=\frac{\cancel{\Delta G^{\standardstate}_{\mathrm{r}}}-\Delta H^{\standardstate}_{\mathrm{r}}}{T}
    \end{equation*}
+   \ifstudents } \fi
    from which:
    \begin{equation*}
    \frac{\Delta H^{\standardstate}_{\mathrm{r}}}{T}=RT \frac{\partial \ln K_{\mathrm{eq}}}{\partial T}
    \end{equation*}   
    and finally:
+   \ifstudents \hideit[2]{ \fi
    \begin{equation*}
    \frac{\partial \ln K_{\mathrm{eq}}}{\partial T} = \frac{\Delta H^{\standardstate}_{\mathrm{r}}}{RT^{2}}
    \end{equation*} 
+   \ifstudents } \fi
    which is the Van't Hoff equation.
   
    We can integrate this differential equation and, assuming that the enthalpy change during the reaction does not depend on the value of temperature, we obtain:
